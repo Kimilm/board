@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8">
+	<title>KIMILM BOARD</title>
+	<link rel="stylesheet" th:href="@{/static/css/bootstrap.css}">
+</head>
+
+<body>
+	<th:block th:fragment="header">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+			<a class="navbar-brand" href="/board/">Board</a>
+
+			<div class="float-right">
+				<div th:if="${session.userName == null}">
+					<button class="btn btn-secondary my-2 my-sm-0" onclick="location.href='/board/signIn'">sign in</button>
+					<button class="btn btn-secondary my-2 my-sm-0" onclick="location.href='/board/signUp'">sign up</button>
+				</div>
+				<div th:unless="${session.userName == null}">
+					<label class="btn btn-secondary my-2 my-sm-0" th:text="${session.userName}"></label>
+					<button class="btn btn-secondary my-2 my-sm-0" onclick="location.href='/board/signOut'">sign out</button>
+				</div>
+			</div>
+		</nav>
+	</th:block>
+</body>
+
+</html>

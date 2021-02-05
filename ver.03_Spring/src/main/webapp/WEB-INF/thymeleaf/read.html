@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8">
+<title>KIMILM BOARD</title>
+<link rel="stylesheet" th:href="@{/static/css/bootstrap.css}">
+</head>
+
+<body th:object="${result}">
+	<div th:replace="component::header"></div>
+
+	<fieldset>
+		<legend>Read</legend>
+
+		<div class="form-group">
+			<label for="exampleTextarea">Title</label>
+			<div class="float-right">
+				<label class="mr-2" th:text=*{boardDate}></label> 
+				<label th:text=*{user.userName}></label>
+			</div>
+			
+			<h3 th:text=*{boardTitle}></h3>
+		</div>
+
+		<br />
+		<div class="form-group">
+			<label for="exampleTextarea">Content</label>
+			<p class="lead mb-4" th:text=*{boardContent}></p>
+			
+			<br />
+		</div>
+
+		<button type="button" class="btn btn-secondary" onClick="history.go(-1)">Back</button>
+		
+		<div class="float-right mb-4">
+		<button th:if="${session.userNo} == *{user.userNo}" type="submit"
+			class="btn btn-primary"
+			th:onclick="'location.href=\'' + @{/update?boardNo={boardNo} (boardNo=*{boardNo})} + '\';'">Update</button>
+
+		<button th:if="${session.userNo} == *{user.userNo}" type="button" class="btn btn-secondary"
+			th:onclick="'location.href=\'' + @{/delete?boardNo={boardNo} (boardNo=*{boardNo})} + '\';'">Delete</button>
+		</div>
+	</fieldset>
+
+	<fieldset>
+		<legend>Comment</legend>
+
+		<div class="mb-4" th:unless="${session.userName == null}">
+			<form class="input-group" action='/board/comment' method='post'>
+				<input type="hidden" name="boardNo" th:value="*{boardNo}">
+				<textarea class="form-control" id="comment" name="commentContent" rows="1"></textarea>
+				<button class="btn btn-primary my-2 my-sm-0 input-group-append" type="submit">comment</button>
+			</form>
+		</div>
+
+		<ul class="list-group" th:each="i: ${comment}">
+			<li class="list-group-item">
+				<div>
+					<label th:text=${i.user.userName}></label>
+					<label class="float-right"th:text=${i.commentDate}></label>
+                </div>
+                <div>
+                	<label th:text=${i.commentContent}></label>
+                	
+                	<div class="float-right" th:if="${session.userNo} == ${i.user.userNo}">
+					<label class="mr-3" th:onclick="'location.href=\'' + @{/updateComment?commentNo={commentNo} (commentNo=${i.commentNo})} + '\';'">update</label>
+					<label th:onclick="'location.href=\'' + @{/deleteComment?commentNo={commentNo} (commentNo=${i.commentNo})} + '\';'">delete</label>
+				</div>
+                </div>
+			</li>
+		</ul>
+
+	</fieldset>
+</body>
+
+</html>

@@ -1,0 +1,4 @@
+kimilm\board\dao\BoardDao.class
+kimilm\board\domain\BoardDomain.class
+kimilm\board\service\BoardService.class
+kimilm\board\controller\BoardContoller.class

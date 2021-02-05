@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>KIMILM BOARD</title>
+    <link rel="stylesheet" th:href="@{/static/css/bootstrap.css}" >
+</head>
+
+<body th:object="${result}">
+    <div th:replace="component::header"></div>
+
+    <form action="/board/saveUpdate" method="post">
+        <fieldset>
+            <legend>Update</legend>
+
+            <input type="hidden" name="boardNo" th:value=*{boardNo}>
+
+            <div class="form-group">
+                <label for="exampleTextarea">Title</label>
+                <textarea class="form-control" id="Title" rows="1" name="boardTitle" th:text=*{boardTitle} th:value=*{boardTitle}></textarea>
+            </div>
+            <br />
+            <div class="form-group">
+                <label for="exampleTextarea">Content</label>
+                <textarea class="form-control" id="Content" rows="10" name="boardContent" th:text=*{boardContent} th:value=*{boardContent}></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Update</button>
+            <button type="button" class="btn btn-secondary" onClick="history.go(-1)">Cancel</button>
+        </fieldset>
+    </form>
+
+</body>
+
+</html>

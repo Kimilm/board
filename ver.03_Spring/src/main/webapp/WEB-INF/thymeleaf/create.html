@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>KIMILM BOARD</title>
+    <link rel="stylesheet" th:href="@{/static/css/bootstrap.css}" >
+</head>
+
+<body>
+    <div th:replace="component::header"></div>
+
+    <form action="/board/saveCreate" method="post">
+        <fieldset>
+            <legend>Create</legend>
+
+            <div class="form-group">
+                <label for="exampleTextarea">Title</label>
+                <textarea class="form-control" id="Title" rows="1" name="boardTitle"></textarea>
+            </div>
+            <br />
+            <div class="form-group">
+                <label for="exampleTextarea">Content</label>
+                <textarea class="form-control" id="Content" rows="10" name="boardContent"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Create</button>
+            <button type="button" class="btn btn-secondary" onClick="history.go(-1)">Cancel</button>
+        </fieldset>
+    </form>
+
+</body>
+
+</html>
