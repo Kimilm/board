@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kimilm.board.dao.BoardDAO">
+  <select id="boardAll" resultType="hashMap">
+    SELECT * FROM TB_BOARD
+  </select>
+
+  <select id="boardSearch" parameterType="map" resultType="hashMap">
+    <![CDATA[ 
+    SELECT * FROM TB_BOARD WHERE boardTitle LIKE '%${search}%'
+    ]]>
+  </select>
+
+  <select id="boardRead" resultType="com.kimilm.board.dto.BoardVO">
+    SELECT * FROM TB_BOARD WHERE boardTitle='test'
+  </select>
+
+  <select id="boardSaveC" parameterType="map">
+    <![CDATA[ INSERT INTO TB_BOARD (boardDate, boardTitle, boardContent) VALUES (NOW(), '${title}', '${content}') ]]>
+  </select>
+
+  <delete id="boardRM" parameterType="map">
+    <![CDATA[ 
+    DELETE FROM TB_BOARD WHERE boardTitle = '${result}'
+    ]]>
+  </delete>
+
+</mapper>

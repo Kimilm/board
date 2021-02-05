@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kimilm.board.dao.UserDAO">
+    <!-- <select id="boardAll" parameterType="map" resultType="hashmap">
+        <![CDATA[ 
+            SELECT A.boardNo, A.boardDate, A.boardTitle, A.boardContent, B.userName
+            FROM TB_BOARD AS A 
+            LEFT JOIN TB_USER AS B ON A.userNo = B.userNo
+            ORDER BY boardNo DESC LIMIT ${start}, ${end} 
+        ]]>
+    </select> -->
+    <select id="loginCheck" parameterType="map" resultType="com.kimilm.board.dto.UserVO">
+        <![CDATA[ SELECT * FROM tb_user WHERE userId='${userId}' AND userPassword='${userPassword}' ]]>
+    </select>
+
+    <insert id="registerUser" parameterType="map">
+        <![CDATA[
+            INSERT INTO tb_user(userId, userPassword, userName, userMail) VALUES ('${userId}', '${userPassword}', '${userName}', '${userMail}') 
+        ]]>
+    </insert>
+
+    <select id="isUser" parameterType="map" resultType="String">
+        <![CDATA[ SELECT userId FROM tb_user WHERE userId='${userId}' ]]>
+    </select>
+
+</mapper>

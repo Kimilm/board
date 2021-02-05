@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>KIMILM BOARD</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+</head>
+
+<body>
+    <fieldset>
+        <legend>Update Comment</legend>
+            <form action='/doUpdateComment' method='post'>
+                <input type="hidden" name="commentNo" th:value="*{commentNo}">
+                <input type="hidden" name="boardNo" th:value="*{boardNo}">
+                <textarea class="form-control" id="comment" name="commentContent" rows="1" th:text="*{commentContent}" th:value="*{commentContent}"></textarea>
+                <button class="btn btn-primary my-2 my-sm-0" type="submit">update</button>
+    </fieldset>
+    <button type="submit" class="btn btn-secondary" onClick="history.go(-1)">Cancel</button>
+</body>
+
+</html>

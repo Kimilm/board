@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kimilm.board.dao.CommentDAO">
+    <select id="commentAll" parameterType="int" resultType="hashmap">
+        <![CDATA[ 
+            SELECT A.commentNo, A.commentContent, A.commentDate, A.userNo, B.userName
+            FROM tb_comment AS A 
+            LEFT JOIN TB_USER AS B ON A.userNo = B.userNo
+            WHERE A.boardNo = ${boardNo}
+        ]]>
+    </select>
+
+    <select id="getComment" parameterType="int" resultType="String">
+        <![CDATA[ 
+            SELECT commentContent FROM tb_comment WHERE commentNo = ${commentNo}
+        ]]>
+    </select>
+
+    <insert id="insertComment" parameterType="map">
+        <![CDATA[ 
+            INSERT INTO tb_comment (commentDate, commentContent, userNo, boardNo) VALUES (now(), '${commentContent}', ${userNo}, ${boardNo})
+        ]]>
+    </insert>
+
+    <update id="updateComment" parameterType="map">
+        <![CDATA[
+            UPDATE tb_comment SET commentContent='${commentContent}', commentDate=now() WHERE commentNo=${commentNo}
+        ]]>
+    </update>
+
+    <delete id="deleteComment" parameterType="int">
+        <![CDATA[ DELETE FROM tb_comment WHERE commentNo=${commentNo} ]]>
+    </delete>
+</mapper>

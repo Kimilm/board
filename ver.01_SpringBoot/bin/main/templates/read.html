@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>KIMILM BOARD</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+</head>
+
+<body th:object="${result}">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+        <a class="navbar-brand" href="/index">Board</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+            aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+
+    <form action="/update">
+        <fieldset>
+            <legend>Read</legend>
+
+            <div class="form-group">
+                <label for="exampleTextarea">Title</label>
+                <textarea class="form-control" id="Title" rows="1" th:text=*{boardTitle}></textarea>
+            </div>
+
+            <legend th:text=*{boardDate}></legend>
+
+            <br />
+            <div class="form-group">
+                <label for="exampleTextarea">Content</label>
+                <textarea class="form-control" id="Content" rows="10" th:text=*{boardContent}></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Update</button>
+        </fieldset>
+    </form>
+
+    <form action="/delete" method="post">
+        <button type="submit" class="btn btn-secondary" name="delete">Delete</button>    
+    </form>
+    <button type="submit" class="btn btn-secondary" onClick="history.go(-1)">Back</button>
+</body>
+
+</html>

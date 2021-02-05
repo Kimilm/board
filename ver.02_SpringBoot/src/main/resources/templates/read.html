@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>KIMILM BOARD</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+</head>
+
+<body th:object="${result}">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+        <a class="navbar-brand" href="/">Board</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+            aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+
+    <!-- <form action="/update"> -->
+    <fieldset>
+        <legend>Read</legend>
+
+        <div class="form-group">
+            <label for="exampleTextarea">Title</label>
+            <textarea class="form-control" id="Title" rows="1" th:text=*{boardTitle}></textarea>
+        </div>
+
+        <legend th:text=*{boardDate}></legend>
+        <legend th:text=*{userName}></legend>
+
+        <br />
+        <div class="form-group">
+            <label for="exampleTextarea">Content</label>
+            <textarea class="form-control" id="Content" rows="10" th:text=*{boardContent}></textarea>
+        </div>
+
+        <button th:if="${session.userNo} == *{userNo}" type="submit" class="btn btn-primary"
+            th:onclick="'location.href=\'' + @{/update?boardNo={boardNo} (boardNo=*{boardNo})} + '\';'">Update</button>
+        <!-- <button type="submit" class="btn btn-primary">Update</button> -->
+        <!-- </form> -->
+    </fieldset>
+
+    <button th:if="${session.userNo} == *{userNo}" type="submit" class="btn btn-secondary"
+        th:onclick="'location.href=\'' + @{/delete?boardNo={boardNo} (boardNo=*{boardNo})} + '\';'">Delete</button>
+    <button type="submit" class="btn btn-secondary" onClick="history.go(-1)">Back</button>
+
+    <fieldset>
+        <legend>Comment</legend>
+
+        <div th:unless="${session.userName == null}">
+            <form action='/comment' method='post'>
+                <input type="hidden" name="boardNo" th:value="*{boardNo}">
+                <textarea class="form-control" id="comment" name="commentContent" rows="1"></textarea>
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">comment</button>
+            </form>
+        </div>
+
+        <table class="table table-hover">
+            <tbody>
+                <tr class="table-secondary" th:each="i: ${comment}">
+                    <th scope="row"></th>
+                    <td th:text=${i.userName}></td>
+                    <td th:text=${i.commentContent}></td>
+                    <td th:text=${i.commentDate}></td>
+                    <td>
+                        <div th:if="${session.userNo} == ${i.userNo}">
+                            <!-- <button class="btn btn-secondary my-2 my-sm-0">update</button>
+                            <button class="btn btn-secondary my-2 my-sm-0">delete</button> -->
+                            <button class="btn btn-secondary my-2 my-sm-0"
+                                th:onclick="'location.href=\'' + @{/updateComment?commentNo={commentNo}&boardNo={boardNo} (commentNo=${i.commentNo}, (boardNo=*{boardNo}))} + '\';'">update</button>
+                            <button class="btn btn-secondary my-2 my-sm-0"
+                                th:onclick="'location.href=\'' + @{/deleteComment?commentNo={commentNo}&boardNo={boardNo} (commentNo=${i.commentNo}, (boardNo=*{boardNo}))} + '\';'">delete</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </fieldset>
+</body>
+
+</html>

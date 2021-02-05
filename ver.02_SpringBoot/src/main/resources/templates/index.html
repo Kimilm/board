@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>KIMILM BOARD</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+        <a class="navbar-brand" href="/">Board</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+            aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div>
+            <div th:if="${session.userName == null}">
+                <button class="btn btn-secondary my-2 my-sm-0" onclick="location.href='/signIn'">sign in</button>
+                <button class="btn btn-secondary my-2 my-sm-0" onclick="location.href='/signUp'">sign up</button>
+            </div>
+            <div th:unless="${session.userName == null}">
+                <label class="btn btn-secondary my-2 my-sm-0" th:text="${session.userName}"></label>
+                <button class="btn btn-secondary my-2 my-sm-0" onclick="location.href='/signOut'">sign out</button>
+            </div>
+        </div>
+    </nav>
+
+    <table class="table table-hover">
+        <thead>
+            <tr class="table-primary">
+                <th scope="col"></th>
+                <th scope="col">Title</th>
+                <th scope="col">User</th>
+                <th scope="col">Date</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr class="table-secondary" th:each="i: ${result}"
+                th:onclick="'location.href=\'' + @{/read?boardNo={boardNo} (boardNo=${i.boardNo})} + '\';'">
+                <!--  get Type data send -->
+                <th scope="row"></th>
+                <td th:text=${i.boardTitle}></td>
+                <td th:text=${i.userName}></td>
+                <td th:text=${i.boardDate}></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div th:object="${currentPage}">
+        <ul class="pagination pagination-sm" th:object="${endPage}">
+            <li class="page-item disabled">
+                <a class="page-link" href="#">&laquo;</a>
+            </li>
+            <li th:each="page: ${#numbers.sequence(1, endPage)}" class="page-item"
+                th:classappend="${page == currentPage} ? 'active'">
+                <a class="page-link" th:href="@{/index/{page} (page=${page})}" th:text=${page}></a>
+            </li>
+
+            <li class="page-item">
+                <a class="page-link" href="#">&raquo;</a>
+            </li>
+        </ul>
+    </div>
+
+    <form class="form-inline my-2 my-lg-0" action="/search">
+        <input class="form-control mr-sm-2" type="text" placeholder="Search" name="search">
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+    </form>
+
+    <div th:unless="${session.userName == null}">
+    <button type="button" class="btn btn-primary" onclick="location.href='/create'">create</button>
+    </div>
+</body>
+
+</html>

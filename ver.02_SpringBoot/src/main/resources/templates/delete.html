@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>KIMILM BOARD</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+</head>
+
+<body th:object="${result}">
+    <legend>Delete</legend>
+
+    <button type="submit" class="btn btn-primary" th:onclick="'location.href=\'' + @{/remove?boardNo={boardNo} (boardNo=*{boardNo})} + '\';'">Delete</button>
+    <button type="submit" class="btn btn-secondary" onClick="history.go(-1)">Cancel</button>
+</body>
+
+</html>

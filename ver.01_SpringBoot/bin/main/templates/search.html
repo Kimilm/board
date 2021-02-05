@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>KIMILM BOARD</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+        <a class="navbar-brand" href="/index">Board</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+            aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+
+    <table class="table table-hover">
+        <thead>
+            <tr class="table-primary">
+                <th scope="col"></th>
+                <th scope="col">Title</th>
+                <th scope="col">Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="table-secondary" th:each="s: ${search}" onclick="location.href='/read'">
+                <th scope="row"></th>
+                <td th:text=${s.boardTitle}></td>
+                <td th:text=${s.boardDate}></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div>
+        <ul class="pagination pagination-sm">
+            <li class="page-item disabled">
+                <a class="page-link" href="#">&laquo;</a>
+            </li>
+            <li class="page-item active">
+                <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">2</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">3</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">4</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">5</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">&raquo;</a>
+            </li>
+        </ul>
+    </div>
+
+    <form class="form-inline my-2 my-lg-0" action="/search">
+        <input class="form-control mr-sm-2" type="text" placeholder="Search" name="search">
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+    </form>
+
+
+    <button type="button" class="btn btn-primary" onclick="location.href='/create'">create</button>
+
+    <!-- <button type="button" class="btn btn-secondary">Secondary</button> -->
+</body>
+
+</html>
